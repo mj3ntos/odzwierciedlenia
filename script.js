@@ -10,91 +10,79 @@ Odzwierciedlenie głównych iteratorów
     reduce - hard
 */
 
-const animals= ["lion", "zebra", "ant", "horse"];
+const animals = ["lion", "zebra", "ant", "horse"];
 const numbers = [1, 4, 6, 2, 12, 0, 5, 2];
 
 console.log("ForEach:");
-const forEachFunction = (arr) =>{
-    for(const ar of arr) console.log(ar);
+// const foeEachFunction = animals.forEach((el) => el);
+const forEachFunction = (arr, callback) => {
+  for (const el of arr) console.log(callback(el));
 };
 
-forEachFunction(numbers);
-
-// const foeEachFunction = animals.forEach((el) => el);
-// console.log(foeEachFunction);   //(zwraca undefind)
-
+forEachFunction(numbers, (el) => el > 2);
 
 console.log("Map:");
-//const mapFunction = animals.map((el) => el); //(zwraca nową tablicę)
-// console.log(mapFunction);
-
-let mapArray = [];
-const mapFunction = (arr) => {
-    for(const ar of arr) mapArray.push(ar);
+const mapFunction = (arr, callback) => {
+  let mapArray = [];
+  for (const el of arr) mapArray.push(callback(el));
+  return mapArray;
 };
-mapFunction(animals);
-console.log(mapArray);
 
-
+console.log(mapFunction(animals, (el) => el.length > 3));
 
 console.log("Filter:");
-// const essa = numbers.filter((el) => el==2 && el);
-// console.log(essa);
-
-let filterArray = [];
-const filterFunction = (arr, el) =>{
-    for(const ar of arr){
-        if(ar === el) filterArray.push(el);
+const filterFunction = (arr, callback) => {
+  let filterArray = [];
+  for (const el of arr) {
+    if (callback(el)) {
+      filterArray.push(el);
     }
-}
+  }
+  return filterArray;
+};
 
-console.log(filterFunction(numbers, 2));
-
-
+console.log(filterFunction(numbers, (el) => el === 2));
 
 console.log("Find:");
 // const found = numbers.find((el) => el === 2);
 // console.log(found);
 
-const findFunction = (arr, el) =>{
-    for(const ar of arr){
-        if(ar === el){
-            return ar;
-        }
-    };
+const findFunction = (arr, callback) => {
+  for (const el of arr) {
+    if (callback(el)) {
+      return el;
+    }
+  }
 };
 
-console.log(findFunction(numbers, 2));
-
+console.log(findFunction(numbers, (el) => el >= 2));
 
 console.log("Includes:");
 // console.log(animals.includes("zebra"));
-const includesFunction = (arr, el) =>{
-    let isIncluded = true;
-    for(const ar of arr) {
-        if(el === ar){
-            isIncluded = true;
-            break;
-        }
-        else isIncluded = false;
+const includesFunction = (arr, search) => {
+  let isIncluded = false;
+  for (const el of arr) {
+    if (el === search) {
+      isIncluded = true;
+      break;
     }
-    return isIncluded
-}
+  }
+  return isIncluded;
+};
 
 console.log(includesFunction(animals, "zebra"));
 
-
 console.log("Some:");
 // console.log(numbers.some((el) =>el > 5));
-const someFucntion = (arr, el) =>{
-    let isMached = false;
-    for(const ar of arr){
-        if(ar > el){
-            isMached = true;
-            break;
-        }
+const someFucntion = (arr, callback) => {
+  let isMached = false;
+  for (const el of arr) {
+    if (callback(el)) {
+      isMached = true;
+      break;
     }
-    return isMached;
-}
+  }
+  return isMached;
+};
 
-console.log(someFucntion(numbers, 5));
+console.log(someFucntion(numbers, (el) => el > 5));
