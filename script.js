@@ -11,7 +11,7 @@ Odzwierciedlenie głównych iteratorów
 */
 
 const animals = ["lion", "zebra", "ant", "horse"];
-const numbers = [1, 4, 6, 2, 12, 0, 5, 2];
+const numbers = [48, 4, 6, 2, 12, 0, 8, 2];
 
 console.log("ForEach:");
 // const foeEachFunction = animals.forEach((el) => el);
@@ -86,3 +86,20 @@ const someFucntion = (arr, callback) => {
 };
 
 console.log(someFucntion(numbers, (el) => el > 5));
+
+console.log("Every:");
+// console.log(numbers.every((el) => el));
+const everyFunction = (arr, callback) => {
+  let isMached = true;
+  for (const el of arr) {
+    if (callback(el)) {
+      isMached = true;
+    } else {
+      isMached = false;
+      break;
+    }
+  }
+  return isMached;
+};
+
+console.log(everyFunction(numbers, (el) => el % 2 == 0));
